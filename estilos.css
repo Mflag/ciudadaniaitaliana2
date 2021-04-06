@@ -1,0 +1,137 @@
+
+body{
+	font-family: arial, helvetica;
+	background: #e8e8e8;
+}
+.menu{
+	list-style: none;
+	padding: 0;
+	background: rgb(0, 140, 69);
+	text-align: center;
+	margin: auto;
+}
+
+.menu li a{
+	text-decoration: none;
+	color: white;
+	padding: 20px;
+	display: block;
+	font-size: 2rem;
+}
+
+.menu li{
+	display: inline-block;
+	text-align: center;
+}
+
+.menu li a:hover{
+	background:rgb(205 , 33, 42);
+}
+#main-container{
+	margin: auto;
+	font-size: 1.5rem;	
+	display: flex;
+}
+
+table{
+	background-color: white;
+	text-align: left;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th{
+	padding: 20px;
+	text-align: left;
+}
+
+
+thead{
+	background-color: red;
+	border-bottom: solid 5px #0F362D;
+	color: white;
+	text-align: left;
+}
+
+tr:nth-child(even){
+	background-color: #ddd;
+}
+
+
+.mover{
+	text-decoration: none;
+	margin: 10px auto;
+	display: flex;
+	width:40%;
+	padding: 0.3rem;
+	font-size: 1.5rem;
+	border: none;
+	background-color: rgb(0, 140, 69);
+	color: white;
+	border-radius: 10px;
+	
+}
+.eliminar{
+	text-decoration: none;
+	margin: 10px auto;
+	display: flex;
+	width:40%;
+	padding: 0.3rem;
+	font-size: 1.5rem;
+	border: none;
+	background-color: rgb(205 , 33, 42);
+	color: white;
+	border-radius: 10px;
+}
+.crear_arbol{
+	width: 25%;
+	height: 400px;
+	color: white;
+	text-align: center;
+	border-radius: 10px;
+	background-color: rgb(0, 140, 69);
+	margin-left: 1rem;
+
+}
+
+.crear_arbol li{
+	list-style: none;
+	
+}
+.crear_arbol input{
+	margin-top: 1rem;
+	font-size: 1.5rem;
+	border: none;
+	color: black;
+	border-radius: 6px;
+	
+	
+}
+.Cliente{
+	background-color: white;
+	font-size: 2rem;
+	display: flex;
+	border-bottom: black 2px solid;
+}
+.Cliente p{
+	margin: 2rem;
+}
+#nuevo_cliente{
+	background-color:rgb(0, 140, 69);
+	text-align: center;
+	width: 40%;
+	border-radius: 25px;
+	margin: auto;
+}
+#nuevo_cliente li{
+	list-style: none;
+}
+#nuevo_cliente input, select{
+	font-size: 3rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	border: none;
+	border-radius: 25px;
+	text-align: center;
+	
+}
