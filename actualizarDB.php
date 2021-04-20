@@ -7,9 +7,11 @@
     $fecha = $_POST["fecha"];
     $email = $_POST["email"];
     $telefono = $_POST["telefono"];
+    $tipo_de_cliente= $_POST["tipo_de_cliente"];
+    $carpeta= $_POST["carpeta"];
     $estado = $_POST["estado"];
 
-    $actualizar = "UPDATE clientes SET apellido='$apellido',nombre='$nombre',fecha='$fecha',email='$email',telefono='$telefono',estado='$estado' WHERE id_cliente ='$id';";
+    $actualizar = "UPDATE clientes SET apellido='$apellido',nombre='$nombre',fecha='$fecha',email='$email',telefono='$telefono', tipo_de_cliente='$tipo_de_cliente',carpeta ='$carpeta',estado='$estado' WHERE id_cliente ='$id';";
 
     $resultado = mysqli_query($conexion, $actualizar);
 

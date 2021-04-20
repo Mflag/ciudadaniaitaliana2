@@ -1,6 +1,6 @@
 <?php
     include("database.php");    
-    $clientes= "SELECT * FROM clientes WHERE estado = 'tratamiento'";
+    $clientes= "SELECT * FROM clientes WHERE estado = 'Tratamiento' ORDER BY apellido";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
     <title>Document</title>
 </head>
 <body>
@@ -23,10 +24,10 @@
     <table>
         <thead>
             <tr>
-                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Arbol</th><th>Acciones</th>
+            <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Origen</th><th>Carpeta</th><th>Arbol</th><th>Acciones</th>
             </tr>
         </thead>
-<?php
+        <?php
     $resultado = mysqli_query($conexion,$clientes); 
     
     while($row=mysqli_fetch_assoc($resultado)){
@@ -37,10 +38,12 @@
             <td><?php echo $row["fecha"]; ?></td>
             <td><?php echo $row["email"]; ?></td>
             <td><?php echo $row["telefono"]; ?></td>
+            <td></td>
+            <td></td>
             <td><a href="arbol.php?id=<?php echo $row["id_cliente"];?>">Arbol</a></td>
-            <td>
-                <a href="actualizar.php?id=<?php echo $row["id_cliente"];?>" class="mover">Modificar</a>
-                <a href="eliminar.php?id=<?php echo $row["id_cliente"];?>&estado=enTratativas.php" class="eliminar">Eliminar</a>
+            <td class="acciones">
+                <a href="actualizar.php?id=<?php echo $row["id_cliente"];?>" class="mover"><i class="fas fa-edit"></i></a>
+                <a href="eliminar.php?id=<?php echo $row["id_cliente"];?>&estado=enTratativas.php" class="eliminar"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
 <?php } ?>

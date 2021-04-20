@@ -15,7 +15,7 @@
 <body>
     <ul class="menu">
         <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratavivas</a></li>
+        <li><a href="enTratativas.php">En Tratativas</a></li>
         <li><a href="terminados.php">Terminados</a></li>
         <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
     </ul>
@@ -24,7 +24,7 @@
     <table>
         <thead>
             <tr>
-                <th>Apellido</th><th>Nombre</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Estado</th><th>Acciones</th>
+                <th>Apellido</th><th>Nombre</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Carpeta</th><th>Estado</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th>Acciones</th>
             </tr>
         </thead>
 <?php
@@ -35,17 +35,39 @@
 ?>
     <form action="actualizarDB.php" method="post" id="actualizar_cliente">
         
-            <td><input type="hidden" value="<?php echo $row["id_cliente"]; ?>" name="id">
-            <input type="text" value="<?php echo $row["apellido"]; ?>" name="apellido" required></td>
+            s<input type="hidden" value="<?php echo $row["id_cliente"]; ?>" name="id">
+            <td><input type="text" value="<?php echo $row["apellido"]; ?>" name="apellido" required></td>
             <td><input type="text" value="<?php echo $row["nombre"]; ?>" name="nombre" required></td>
             <td><input type="text" value="<?php echo $row["fecha"]; ?>" name="fecha" required></td>
             <td><input type="text" value="<?php echo $row["email"]; ?>" name="email"></td>
             <td><input type="text" value="<?php echo $row["telefono"]; ?>" name="telefono"></td>
-            <td><select name="estado" id="estado" form="actualizar_cliente">
-                <option value="activo">Activo</option>
-                <option value="tratamiento">En Tratamiento</option>
-                <option value="terminado">Terminado</option>
-            </select></td>
+            <td>
+                <select name="tipo_de_cliente" id="tipo_de_cliente" form="actualizar_cliente">
+                    <option value="<?php echo $row["tipo_de_cliente"]; ?>"><?php echo $row["tipo_de_cliente"]; ?></option>
+                    <option value="Compartido con Gonzalo">Compartido con Gonzalo</option>
+                    <option value="Propio">Propio</option>
+                </select>
+            </td>
+            <td>
+                <select name="carpeta" id="carpeta" form="actualizar_cliente">
+                    <option value="<?php echo $row["carpeta"]; ?>"><?php echo $row["carpeta"]; ?></option>
+                    <option value="Andrea">Andrea</option>
+                    <option value="Franco">Franco</option>
+                    <option value="Matias">Matias</option>
+                    <option value="Rocio">Rocio</option>
+                </select>
+            </td>
+            <td>
+                <select name="estado" id="estado" form="actualizar_cliente">
+                <option value="<?php echo $row["estado"]; ?>"><?php echo $row["estado"]; ?></option>
+                <option value="Activo">Activo</option>
+                <option value="Tratamiento">En Tratamiento</option>
+                <option value="Terminado">Terminado</option>
+                </select>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
             
             <td><input type="submit" value="Actualizar"> </td>            
         

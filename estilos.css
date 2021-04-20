@@ -29,20 +29,20 @@ body{
 }
 #main-container{
 	margin: auto;
-	font-size: 1.5rem;	
+	font-size: 1rem;	
 	display: flex;
 }
 
 table{
 	background-color: white;
-	text-align: left;
+	
 	border-collapse: collapse;
 	width: 100%;
 }
 
 th{
 	padding: 20px;
-	text-align: left;
+	
 }
 
 
@@ -50,66 +50,69 @@ thead{
 	background-color: red;
 	border-bottom: solid 5px #0F362D;
 	color: white;
-	text-align: left;
+	
 }
 
 tr:nth-child(even){
 	background-color: #ddd;
 }
 
+td{
+	text-align: center;
+}
+
 
 .mover{
-	text-decoration: none;
-	margin: 10px auto;
-	display: flex;
-	width:40%;
+	width:25%;
 	padding: 0.3rem;
-	font-size: 1.5rem;
+	font-size: 1rem;
 	border: none;
 	background-color: rgb(0, 140, 69);
 	color: white;
 	border-radius: 10px;
 	
 }
-.eliminar{
-	text-decoration: none;
-	margin: 10px auto;
-	display: flex;
-	width:40%;
+.eliminar{	
+	width:25%;
 	padding: 0.3rem;
-	font-size: 1.5rem;
+	font-size: 1rem;
 	border: none;
 	background-color: rgb(205 , 33, 42);
 	color: white;
 	border-radius: 10px;
 }
-.crear_arbol{
-	width: 25%;
-	height: 400px;
+.crear_arbol h3{
+	background-color: rgb(205 , 33, 42);
 	color: white;
 	text-align: center;
-	border-radius: 10px;
-	background-color: rgb(0, 140, 69);
-	margin-left: 1rem;
-
+	margin: 0px;
+	padding: 1rem;
+}
+.crear_arbol{
+	width: 500px;
+	border:1px solid black;
+	text-align:left ;
+	align-content: initial;
+	margin:auto;
+	
 }
 
 .crear_arbol li{
+	padding-left: 1rem;
 	list-style: none;
 	
 }
-.crear_arbol input{
-	margin-top: 1rem;
-	font-size: 1.5rem;
-	border: none;
-	color: black;
-	border-radius: 6px;
-	
-	
+.crear_arbol input[type=submit]{
+	width: 75px;
+	margin: 1rem 162.5px;
+}
+
+h3,h4{
+	margin: 1rem;
 }
 .Cliente{
 	background-color: white;
-	font-size: 2rem;
+	font-size: 1rem;
 	display: flex;
 	border-bottom: black 2px solid;
 }
@@ -117,21 +120,73 @@ tr:nth-child(even){
 	margin: 2rem;
 }
 #nuevo_cliente{
-	background-color:rgb(0, 140, 69);
-	text-align: center;
-	width: 40%;
-	border-radius: 25px;
-	margin: auto;
+	margin:10px auto;
+	width: 400px;
+	border: solid 2px black;
 }
 #nuevo_cliente li{
 	list-style: none;
 }
 #nuevo_cliente input, select{
-	font-size: 3rem;
-	margin-top: 1rem;
+	font-size: 1rem;
 	margin-bottom: 1rem;
-	border: none;
-	border-radius: 25px;
-	text-align: center;
 	
+	
+	
+}
+
+#nuevo_cliente h2{
+	margin-top: 0px;
+	padding: 0.5rem;
+	text-align: center;
+	color: white;
+	background-color:rgb(0, 140, 69);
+}
+.acciones{
+	display: flex;
+	align-items: center;
+}
+.imprimir{
+	padding: 0;
+	text-align: center;
+	position:relative;
+}
+.imprimir li{
+	display: inline-block;
+	
+	margin: auto;
+}
+.separacion{
+	border-bottom: black 4px solid;
+	padding-top: 1rem;
+}
+.paraImprimir{
+	font-size: 1.5rem;
+}
+.paraImprimir thead{
+	background-color: white;
+	border-bottom: solid 4px black;
+	border-top: solid 4px black;;
+	color: black;
+	
+}
+.paraImprimir td{
+	border-bottom: black 2px solid;
+	border-right: black 1px solid;
+	text-align: left;
+}
+.acta{
+	width: 5%;
+}
+
+.lugar{
+	width: 25%;
+}
+
+.datos{
+	width: 40%;
+}
+
+.fecha{
+	width: 40%;
 }
