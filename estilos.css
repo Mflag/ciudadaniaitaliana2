@@ -190,3 +190,32 @@ h3,h4{
 .fecha{
 	width: 40%;
 }
+.crear_pago{
+	width: 350px;
+	border:1px solid black;
+}
+.crear_pago h3{
+	background-color: rgb(205 , 33, 42);
+	color: white;
+	text-align: center;
+	margin: 0px;
+	padding: 1rem;
+}
+.crear_pago ul{
+	width: 100% ;
+	margin-left: 0px;
+	
+}
+.crear_pago li{
+	text-align:left ;
+	list-style: none;
+	margin: 0.5rem;
+	
+}
+.crear_pago input{
+	width: 50%;
+}
+.crear_pago input[type=submit]{
+	width: 75px;
+	margin: auto;
+}

@@ -35,7 +35,7 @@
 ?>
     <form action="actualizarDB.php" method="post" id="actualizar_cliente">
         
-            s<input type="hidden" value="<?php echo $row["id_cliente"]; ?>" name="id">
+            <input type="hidden" value="<?php echo $row["id_cliente"]; ?>" name="id">
             <td><input type="text" value="<?php echo $row["apellido"]; ?>" name="apellido" required></td>
             <td><input type="text" value="<?php echo $row["nombre"]; ?>" name="nombre" required></td>
             <td><input type="text" value="<?php echo $row["fecha"]; ?>" name="fecha" required></td>

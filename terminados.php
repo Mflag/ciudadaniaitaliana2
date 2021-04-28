@@ -38,8 +38,8 @@
             <td><?php echo $row["fecha"]; ?></td>
             <td><?php echo $row["email"]; ?></td>
             <td><?php echo $row["telefono"]; ?></td>
-            <td></td>
-            <td></td>
+            <td><?php echo $row["tipo_de_cliente"]; ?></td>
+            <td><?php echo $row["carpeta"]; ?></td>
             <td><a href="arbol.php?id=<?php echo $row["id_cliente"];?>">Arbol</a></td>
             <td class="acciones">
                 <a href="actualizar.php?id=<?php echo $row["id_cliente"];?>" class="mover"><i class="fas fa-edit"></i></a>

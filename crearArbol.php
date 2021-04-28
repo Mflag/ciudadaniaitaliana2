@@ -14,11 +14,19 @@
     $lugar_defuncion = $_POST["lugar_defuncion"] ;
     $datos_defuncion = $_POST["datos_defuncion"] ;
     $fecha_defuncion = $_POST["fecha_defuncion"] ;
-    $divorcio = $_POST["divorcio"];
+    if($_POST["divorcio"] == 1){
+        $divorcio = $_POST["divorcio"];
+    }else {
+        $divorcio = 0;
+    }
     $lugar_divorcio = $_POST["lugar_divorcio"] ;
     $datos_divorcio = $_POST["datos_divorcio"] ;
     $fecha_divorcio = $_POST["fecha_divorcio"] ;
-    $segundo = $_POST["segundo"];
+    if($_POST["segundo"] == 1){   
+        $segundo = $_POST["segundo"];
+    }else{
+        $segundo = 0;
+    } 
     $lugar_segundo = $_POST["lugar_segundo"] ;
     $datos_segundo = $_POST["datos_segundo"] ;
     $fecha_segundo = $_POST["fecha_segundo"] ;

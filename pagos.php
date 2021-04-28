@@ -1,8 +1,8 @@
 <?php
     include("database.php"); 
     $id=$_GET["id"];   
-    $cuentas= "SELECT * FROM cuentas WHERE id_cliente= '$id'";
-    $cliente= "SELECT * FROM clientes WHERE id_cliente= '$id'";
+    $cuentas= "SELECT * FROM cuentas WHERE id_cliente='$id'";
+    $cliente= "SELECT * FROM clientes WHERE id_cliente='$id'";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +35,11 @@
             <p>Estado: <?php echo $rowUno["estado"]; ?></p>
         </div>    
         <?php } ?>
+        <div id="main-container">
         <table>
             <thead>
                 <tr>
-                    <th>Presupuesto</th><th>Saldo</th><th>Pagos</th><th>Fecha de pago</th>
+                    <th>Presupuesto</th><th>Saldo</th><th>Pagos</th><th>Fecha de pago</th><th></th>
                 </tr>
             </thead>
         <?php 
@@ -49,11 +50,12 @@
                 $total_pagos = $total_pagos + $rowCuentas["pagos"];
                 $presupuesto = $rowCuentas["presupuesto"];
         ?>            
-                <tr>    
+                <tr style="font-size: 2rem;">    
                     <td>$<?php echo $rowCuentas["presupuesto"]; ?></td>                   
                     <td>$<?php echo $rowCuentas["saldo"]; ?></td>
                     <td>$<?php echo $rowCuentas["pagos"]; ?></td>
                     <td><?php echo $rowCuentas["fecha_pago"]; ?></td>
+                    <td><a href="eliminarPagos.php?id=<?php echo $rowCuentas["id_cuentas"]; ?>&idCliente=<?php echo $id;?>" class="eliminar"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
         <?php } ?>
 
@@ -61,23 +63,46 @@
         <?php
            if(isset($presupuesto) ){
         ?>
-            <form action="agregarPagos.php" method="post">
+            <form action="agregarPagos.php" method="post" class="crear_pago">
+            <h3>Agregar Presupuesto</h3>    
+            <ul>
                 <input type="hidden" name="idCliente" value="<?php echo $id ?>">                
                 <input type="hidden" name="presupuesto" value="<?php echo $presupuesto ?>">
                 <input type="hidden" value="<?php echo $total_pagos ?>" name="total_pagos">
-                <input type="number" name="pago"  require>
-                <input type="date" name="fecha_pago" value="<?php echo date('Y-m-d'); ?>" required>
-                <input type="submit">
+                <li>
+                    <label for="pago">Pago: </label>
+                    <input type="number" name="pago"  required></li>
+                <li>
+                    <label for="fecha_pago">Fecha: </label>
+                    <input type="date" name="fecha_pago" value="<?php echo date('Y-m-d'); ?>" required>
+                </li>
+                <li><input type="submit"></li>
+            </ul>
             </form>
         <?php }else{ ?>
-            <form action="agregarPagos.php" method="post">
+            <form action="agregarPagos.php" method="post" class="crear_pago">
+            <h3>Agregar Pago</h3>    
+            <ul>
                 <input type="hidden" name="idCliente" value="<?php echo $id ?>">
-                <input type="number" name="presupuesto" require >
+                <li>
+                    <label for="presupuesto">Presupuesto: </label>
+                    <input type="number" name="presupuesto" required >
+                </li>
                 <input type="hidden" value="<?php echo $total_pagos ?>" name="total_pagos">
-                <input type="number" name="pago" value="0" >
-                <input type="date" name="fecha_pago" value="<?php echo date('Y-m-d'); ?>" required>
-                <input type="submit">
+                <li>
+                    <label for="pago">Pago: </label>
+                    <input type="number" name="pago" value="0" >
+                </li>
+                <li>
+                    <label for="fecha_pago">Fecha: </label>
+                    <input type="date" name="fecha_pago" value="<?php echo date('Y-m-d'); ?>" required>
+                </li>
+                <li>
+                    <input type="submit">
+                </li>
+            </ul>
             </form>
         <?php } ?>
+        </div>
 </body>
 </html>
