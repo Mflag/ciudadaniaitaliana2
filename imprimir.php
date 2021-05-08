@@ -29,13 +29,48 @@
             <p>Estado: <?php echo $rowUno["estado"]; ?></p>
         </div>    
         
-<?php } ?>
+<?php } ?><br><h2>Pagos</h2><br>
+    <table class="paraImprimir">
+            <thead >
+                <tr>
+                   <th>Fecha de pago</th><th>Medio de Pago</th><th>Pagos</th><th>Saldo</th>
+                </tr>
+            </thead>
+        <?php 
+            $cuentas = "SELECT * FROM cuentas WHERE id_cliente ='$id'"; 
+            $resultado_cuentas = mysqli_query($conexion,$cuentas);
+            $total_pagos=0;
+            $flagPresupuesto = 0;
+            
+            while($rowCuentas=mysqli_fetch_assoc($resultado_cuentas)){
+                $total_pagos = $total_pagos + $rowCuentas["pagos"];
+                $presupuesto = $rowCuentas["presupuesto"];
+                if($flagPresupuesto == 0){
+                ?>
+                    <tr >
+                    <td >Presupuesto: $<?php echo $presupuesto ?></td><td></td><td ></td><td></td><td></td>
+                    </tr>
+                <?php    
+                    $flagPresupuesto++;
+                }
+        ?>            
+                <tr >    
+                                      
+                    <td><?php echo $rowCuentas["fecha_pago"]; ?></td>
+                    <td><?php echo $rowCuentas["medio"]; ?></td>
+                    <td>$<?php echo $rowCuentas["pagos"]; ?></td>
+                    <td>$<?php echo $rowCuentas["saldo"]; ?></td>
+                    
+                </tr>
+        <?php } ?>
+
+        </table><br><h2>Arbol</h2><br>
 
     <div >
     <table class="paraImprimir">
         <thead>
             <tr>
-                <th class="acta">Acta</th><th class="lugar">Lugar</th><th class="datos">Datos</th><th class="fecha">Fecha</th>
+                <th class="acta">Acta</th><th class="lugar">Lugar</th><th class="datos">Estado de acta</th><th class="fecha">Fecha</th>
             </tr>
             
         </thead>
@@ -66,14 +101,7 @@
             <td><?php echo $row["fecha_matrimonio"]; ?></td>
             <td></td>
         </tr>
-        <tr>
-            <td><?php echo $row["acta"]; ?>.3</td>
-            <td><?php echo $row["lugar_defuncion"]; ?></td>
-            <td><?php echo $row["datos_defuncion"]; ?></td>
-            <td><?php echo $row["fecha_defuncion"]; ?></td>
-            <td></td>           
-            
-        </tr>
+        
         <?php    if($row["divorcio"] == 1){    ?>
             <tr>
             <td><?php echo $row["acta"]; ?>.9</td>
@@ -90,10 +118,33 @@
             <td><?php echo $row["fecha_segundo"]; ?></td>
             <td></td>           
             </tr>  
-        <?php } ?>        
+            <?php    if($row["segundoDivorcio"] == 1){    ?>
+            <tr>
+            <td><?php echo $row["acta"]; ?>.9.2</td>
+            <td><?php echo $row["lugar_segundoDivorcio"]; ?></td>
+            <td><?php echo $row["datos_segundoDivorcio"]; ?></td>
+            <td><?php echo $row["fecha_segundoDivorcio"]; ?></td>
+            <td></td>           
+            </tr>
+            <?php    if($row["tercero"] == 1){    ?>
+            <tr>
+            <td><?php echo $row["acta"]; ?>.2.3</td>
+            <td><?php echo $row["lugar_tercero"]; ?></td>
+            <td><?php echo $row["datos_tercero"]; ?></td>
+            <td><?php echo $row["fecha_tercero"]; ?></td>
+            <td></td>           
+            </tr>      
+        <?php }}}} ?>        
 
 
-        <?php } ?>    
+        <tr>
+            <td><?php echo $row["acta"]; ?>.3</td>
+            <td><?php echo $row["lugar_defuncion"]; ?></td>
+            <td><?php echo $row["datos_defuncion"]; ?></td>
+            <td><?php echo $row["fecha_defuncion"]; ?></td>
+            <td></td>           
+            
+        </tr>   
         <tr class="separacion"><td></td><td></td><td></td><td></td><td></td></tr>
         
 <?php } ?>

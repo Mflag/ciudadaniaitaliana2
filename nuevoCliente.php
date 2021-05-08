@@ -14,10 +14,10 @@
         <li><a href="index.php">Activos</a></li>
         <li><a href="enTratativas.php">En Tratavivas</a></li>
         <li><a href="terminados.php">Terminados</a></li>
-        <li><a href="nuevoCliente.php" style="text-decoration: underline;">Nuevo Cliente</a></li>
+        <li><a href="nuevoCliente.php" style="text-decoration: underline; color: black;">Nuevo Cliente</a></li>
     </ul>
     </nav>
-    <form action="crearCliente.php" method="post" id="nuevo_cliente">
+    <form action="crearCliente.php" method="post" id="nuevo_cliente" style="font-size: 1.5rem;">
         <h2>Nuevo Cliente</h2>
         <ul>
             <li>
@@ -44,12 +44,12 @@
                 <label for="tipo_de_cliente"> Tipo de Cliente: </label>
                 <select name="tipo_de_cliente" id="tipo_de_cliente" form="nuevo_cliente">
                     <option value="Indefinido">Indefinido</option>
-                    <option value="Compartido con Gonzalo">Compartido con Gonzalo</option>
+                    <option value="CRM">CRM</option>
                     <option value="Propio">Propio</option>
                 </select>
             </li>           
             <li>
-                <label for="carpeta">Carpeta: </label>
+                <label for="carpeta">Agente: </label>
                 <select name="carpeta" id="carpeta" form="nuevo_cliente">
                     <option value="Indefinido">Indefinido</option>
                     <option value="Andrea">Andrea</option>

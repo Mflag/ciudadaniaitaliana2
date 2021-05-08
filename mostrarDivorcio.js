@@ -20,3 +20,24 @@ function mostrarSegundo(){
     }
 }
 
+function mostrarSegundoDivorcio(){
+    segundoDivorcio= document.getElementById("desplegar_segundo_divorcio");
+    check_segundoDivorcio = document.getElementById("segundo_divorcio");
+    if ( check_segundoDivorcio.checked ){
+        segundoDivorcio.style.display="block";
+    }
+    else {
+        segundoDivorcio.style.display="none";
+    }
+}
+function mostrarTercero(){
+    tercero= document.getElementById("desplegar_tercero");
+    check_tercero = document.getElementById("tercero");
+    if ( check_tercero.checked ){
+        tercero.style.display="block";
+    }
+    else {
+        tercero.style.display="none";
+    }
+}
+

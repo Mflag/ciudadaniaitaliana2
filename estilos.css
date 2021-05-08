@@ -1,4 +1,5 @@
 
+
 body{
 	font-family: arial, helvetica;
 	background: #e8e8e8;
@@ -31,6 +32,9 @@ body{
 	margin: auto;
 	font-size: 1rem;	
 	display: flex;
+}
+.bordeArbol td{
+	border-right: black 1px solid;
 }
 
 table{
@@ -89,7 +93,7 @@ td{
 	padding: 1rem;
 }
 .crear_arbol{
-	width: 500px;
+	width: 350px;
 	border:1px solid black;
 	text-align:left ;
 	align-content: initial;
@@ -161,7 +165,7 @@ h3,h4{
 	padding-top: 1rem;
 }
 .paraImprimir{
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 }
 .paraImprimir thead{
 	background-color: white;

@@ -1,7 +1,6 @@
 <?php
     include("database.php"); 
     $id=$_GET["id"];   
-    $cuentas= "SELECT * FROM cuentas WHERE id_cliente='$id'";
     $cliente= "SELECT * FROM clientes WHERE id_cliente='$id'";
 ?>
 <!DOCTYPE html>
@@ -38,23 +37,34 @@
         <div id="main-container">
         <table>
             <thead>
-                <tr>
-                    <th>Presupuesto</th><th>Saldo</th><th>Pagos</th><th>Fecha de pago</th><th></th>
+                <tr style="font-size: 2rem;">
+                   <th>Fecha de pago</th><th>Medio de Pago</th><th>Pagos</th><th>Saldo</th><th></th>
                 </tr>
             </thead>
         <?php 
-            $cuentas = "SELECT * FROM cuentas WHERE id_cliente = $id"; 
+            $cuentas = "SELECT * FROM cuentas WHERE id_cliente = '$id'"; 
             $resultado_cuentas = mysqli_query($conexion,$cuentas);
             $total_pagos=0;
+            $flagPresupuesto = 0;
+            
             while($rowCuentas=mysqli_fetch_assoc($resultado_cuentas)){
                 $total_pagos = $total_pagos + $rowCuentas["pagos"];
                 $presupuesto = $rowCuentas["presupuesto"];
+                if($flagPresupuesto == 0){
+                ?>
+                    <tr style="border-bottom: 3px solid black;">
+                    <td></td><td style="font-size: 2rem;">Presupuesto: $<?php echo $presupuesto ?></td><td ></td><td></td><td></td>
+                    </tr>
+                <?php    
+                    $flagPresupuesto++;
+                }
         ?>            
                 <tr style="font-size: 2rem;">    
-                    <td>$<?php echo $rowCuentas["presupuesto"]; ?></td>                   
-                    <td>$<?php echo $rowCuentas["saldo"]; ?></td>
-                    <td>$<?php echo $rowCuentas["pagos"]; ?></td>
+                                      
                     <td><?php echo $rowCuentas["fecha_pago"]; ?></td>
+                    <td><?php echo $rowCuentas["medio"]; ?></td>
+                    <td>$<?php echo $rowCuentas["pagos"]; ?></td>
+                    <td>$<?php echo $rowCuentas["saldo"]; ?></td>
                     <td><a href="eliminarPagos.php?id=<?php echo $rowCuentas["id_cuentas"]; ?>&idCliente=<?php echo $id;?>" class="eliminar"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
         <?php } ?>
@@ -64,7 +74,7 @@
            if(isset($presupuesto) ){
         ?>
             <form action="agregarPagos.php" method="post" class="crear_pago">
-            <h3>Agregar Presupuesto</h3>    
+            <h3>Agregar Pago</h3>    
             <ul>
                 <input type="hidden" name="idCliente" value="<?php echo $id ?>">                
                 <input type="hidden" name="presupuesto" value="<?php echo $presupuesto ?>">
@@ -73,6 +83,14 @@
                     <label for="pago">Pago: </label>
                     <input type="number" name="pago"  required></li>
                 <li>
+                <li>
+                    <label for="medio">Medio: </label>
+                    <select name="medio" id="medio">
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Transferecia">Transferecia</option>
+
+                    </select>
+                </li>
                     <label for="fecha_pago">Fecha: </label>
                     <input type="date" name="fecha_pago" value="<?php echo date('Y-m-d'); ?>" required>
                 </li>
@@ -81,7 +99,7 @@
             </form>
         <?php }else{ ?>
             <form action="agregarPagos.php" method="post" class="crear_pago">
-            <h3>Agregar Pago</h3>    
+            <h3>Agregar Presupuesto</h3>    
             <ul>
                 <input type="hidden" name="idCliente" value="<?php echo $id ?>">
                 <li>
@@ -89,10 +107,9 @@
                     <input type="number" name="presupuesto" required >
                 </li>
                 <input type="hidden" value="<?php echo $total_pagos ?>" name="total_pagos">
-                <li>
-                    <label for="pago">Pago: </label>
-                    <input type="number" name="pago" value="0" >
-                </li>
+                    
+                    <input type="hidden" name="pago" value="0" >
+                
                 <li>
                     <label for="fecha_pago">Fecha: </label>
                     <input type="date" name="fecha_pago" value="<?php echo date('Y-m-d'); ?>" required>

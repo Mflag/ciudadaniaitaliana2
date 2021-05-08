@@ -11,8 +11,9 @@
         $saldo = intval($presupuesto) - (intval($pago) + intval($total_pagos)) ;
     }    
     $fecha_pago = $_POST["fecha_pago"];
+    $medio = $_POST["medio"];
 
-    $insertar = "INSERT INTO cuentas (id_cuentas, id_cliente, presupuesto, pagos, saldo, fecha_pago) VALUES (NULL,'$idCliente', '$presupuesto', '$pago', '$saldo','$fecha_pago');";
+    $insertar = "INSERT INTO cuentas (id_cuentas, id_cliente, presupuesto, pagos, saldo, fecha_pago, medio) VALUES (NULL,'$idCliente', '$presupuesto', '$pago', '$saldo','$fecha_pago','$medio');";
     $resultado = mysqli_query($conexion, $insertar);
     if($resultado){
         echo "<script>window.location='/CiudadaniaItaliana/pagos.php?id=$idCliente'</script>";

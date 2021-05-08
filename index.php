@@ -16,7 +16,7 @@
 </head>
 <body>
     <ul class="menu">
-        <li><a href="index.php" style="text-decoration: underline;">Activos</a></li>
+        <li><a href="index.php" style="text-decoration: underline; color:black;">Activos</a></li>
         <li><a href="enTratativas.php">En Tratativas</a></li>
         <li><a href="terminados.php">Terminados</a></li>
         <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
@@ -25,8 +25,8 @@
 
     <table>
         <thead>
-            <tr>
-                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Carpeta</th><th>Arbol</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
+            <tr style="font-size: 1.5rem;">
+                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Agente</th><th>Arbol</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
             </tr>
         </thead>
 <?php
@@ -35,7 +35,7 @@
     while($row=mysqli_fetch_assoc($resultado)){
        
 ?>
-        <tr>
+        <tr style="font-size: 1.5rem;">
             <td><?php echo $row["apellido"]," ", $row["nombre"]; ?></td>
             <td><?php echo $row["fecha"]; ?></td>
             <td><?php echo $row["email"]; ?></td>
@@ -64,9 +64,18 @@
        
 ?>            
             
-            <td>$<?php echo $presupuesto ?></td>
-            <td>$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php echo $total_pagos; ?></a></td>
-            <td>$<?php echo $saldo; ?></td>
+            <td>$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php 
+                        if(strlen($presupuesto) ==6){echo wordwrap($presupuesto, 3, ".",true);}
+                        else
+                        {echo $presupuesto;}
+                                 
+            ?></a></td>
+            <td>$<?php if(strlen($total_pagos) ==6){echo wordwrap($total_pagos, 3, ".",true);}
+                        else
+                        {echo $total_pagos;} ?></td>
+            <td>$<?php if(strlen($saldo) ==6){echo wordwrap($saldo, 3, ".",true);}
+                        else
+                        {echo $saldo;}; ?></td>
 
 <?php }else{ ?>     
 

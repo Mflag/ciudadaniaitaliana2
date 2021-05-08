@@ -44,8 +44,9 @@
             <td>
                 <select name="tipo_de_cliente" id="tipo_de_cliente" form="actualizar_cliente">
                     <option value="<?php echo $row["tipo_de_cliente"]; ?>"><?php echo $row["tipo_de_cliente"]; ?></option>
-                    <option value="Compartido con Gonzalo">Compartido con Gonzalo</option>
+                    <option value="CRM">CRM</option>
                     <option value="Propio">Propio</option>
+                
                 </select>
             </td>
             <td>
