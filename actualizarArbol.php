@@ -2,6 +2,7 @@
     include("database.php");    
     $id=$_GET["id"];
     $clientes= "SELECT * FROM arboles WHERE id_arbol ='$id'";
+    $actas= "SELECT * FROM actas WHERE id_arbol ='$id' ORDER BY acta";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,17 +11,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
     <title>Document</title>
 </head>
 <body>
     <ul class="menu">
         <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratavivas</a></li>
+        <li><a href="enTratativas.php">En Tratativas</a></li>
         <li><a href="terminados.php">Terminados</a></li>
         <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
     </ul>
-    <div id="main-container">
-
+    <div id="main-container" >
+    <table style="font-size: 1.7rem;">
+        <thead>
+            <tr> <th>Acta</th><th>Lugar</th><th>Estado de acta</th><th>Fecha</th><th></th><th></th></tr>
+        </thead>
+    <?php 
+        $resultadoActas = mysqli_query($conexion,$actas); 
+    
+        while($rowActas=mysqli_fetch_assoc($resultadoActas)){
+    ?>
+    <form action="actualizarActasDb.php" method="post">
+        <input type="hidden" value="<?php echo $rowActas["id_acta"];?>" name="idActa">
+        <input type="hidden" value="<?php echo $rowActas["id_arbol"];?>" name="idArbol">
+        <tr>
+            <td><input type="text" value="<?php echo $rowActas["acta"];?>" name="acta"></td>
+            <td><input type="text" value="<?php echo $rowActas["lugar"];?>" name="lugar"></td>
+            <td><input type="text" value="<?php echo $rowActas["dato"];?>" name="dato"></td>
+            <td><input type="text" value="<?php echo $rowActas["fecha"];?>" name="fecha"></td>
+            <td><input type="submit" ></td>
+            <td><a href="eliminarActa.php?id=<?php echo $rowActas["id_acta"];?>&idArbol=<?php echo $rowActas["id_arbol"];?>" class="eliminar"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+    </form>
+    
+    <?php } ?>
+</table>
     
         
 <?php
@@ -29,168 +54,28 @@
     while($row=mysqli_fetch_assoc($resultado)){
        
 ?>
-    <form action="actualizarArbolDB.php" method="post" id="actualizar_cliente" class="crear_arbol">
-            <h3>Actualizar descendiente</h3>
-            <input type="hidden" value="<?php echo $row["id_arbol"]; ?>" name="idArbol">
-            <input type="hidden" value="<?php echo $row["id_cliente"]; ?>" name="idCliente">
-            <h4>Descendiente</h4>
+    <form action="actualizarDescendienteDb.php" method="post" class="crear_pago" id="crear_descendiente">
+    <input type="hidden" value="<?php echo $row["id_arbol"];; ?>" name="idArbol">        
+    <input type="hidden" value="<?php echo $row["id_cliente"];; ?>" name="idCliente">
+            <h3>Agregar Descendiente</h3>
+            <ul>
                 <li>
-                    <label for="acta">Acta:</label>
-                    <input value="<?php echo $row["acta"]; ?>" name="acta" type="text" >
-                </li>       
-                <li>
-                    <label for="nombre">Nombre: </label>
-                    <input value="<?php echo $row["nombre"]; ?>" name="nombre" type="text" required>
-                </li>     
-                <li>
-                    <label for="apellido">Apellido: </label>
-                    <input value="<?php echo $row["apellido"]; ?>" name="apellido" type="text" >
-                </li>  
-            <h4>Nacimiento</h4>     
-                <li>
-                    <label for="lugar_nacimiento">Lugar de acta nacimiento: </label>
-                    <input value="<?php echo $row["lugar_nacimiento"]; ?>" name="lugar_nacimiento" type="text" >
+                    <label for="numActa">Nro Acta :</label>
+                    <input type="text" name="numActa" value="<?php echo $row["acta"]; ?>">
                 </li>
                 <li>
-                    <label for="datos_nacimiento">Datos de acta nacimiento: </label>
-                    <input value="<?php echo $row["datos_nacimiento"]; ?>" name="datos_nacimiento" type="text" >
-                </li>
-                <li>
-                    <label for="fecha_nacimiento">Fecha de nacimiento: </label>
-                    <input value="<?php echo $row["fecha_nacimiento"]; ?>" name="fecha_nacimiento" type="date" >
-                </li>
-            <h4>Matrimonio</h4>
-                <li>
-                    <label for="lugar_matrimonio">Lugar de acta matrimonio: </label>
-                    <input value="<?php echo $row["lugar_matrimonio"]; ?>" name="lugar_matrimonio" type="text" >
-                </li>
-                <li>
-                    <label for="datos_matrimonio">Datos de acta matrimonio: </label>
-                    <input value="<?php echo $row["datos_matrimonio"]; ?>" name="datos_matrimonio" type="text" >
-                </li>
-                <li>
-                    <label for="fecha_matrimonio">Fecha de  matrimonio: </label>
-                    <input value="<?php echo $row["fecha_matrimonio"]; ?>" name="fecha_matrimonio" type="date" >
-                </li>
-            <h4>Defuncion</h4>
-                <li>
-                    <label for="lugar_defuncion">Lugar de acta defuncion: </label>
-                    <input value="<?php echo $row["lugar_defuncion"]; ?>" name="lugar_defuncion" type="text" >
-                </li>
-                <li>
-                    <label for="datos_defuncion">Datos de acta defuncion</label>
-                    <input value="<?php echo $row["datos_defuncion"]; ?>" name="datos_defuncion" type="text" >
-                </li>
-                <li>
-                    <label for="fecha_defuncion">Fecha de defuncion: </label>
-                    <input value="<?php echo $row["fecha_defuncion"]; ?>" name="fecha_defuncion" type="date" >
-                </li>
-                <?php    if($row["divorcio"] == 1){    ?>
-            
-            <h4>Divorcio</h4>
-            <li>
-            <label for="lugar_divorcio">Lugar de acta divorcio</label>
-            <input type="text" value="<?php echo $row["lugar_divorcio"]; ?>" name="lugar_divorcio">
+                    <label for="apellido">Apellido :</label>
+                <input type="text" name="apellido" value="<?php echo $row["apellido"]; ?>">
             </li>
             <li>
-            <label for="datos_divorcio">Datosde acta divorcio</label>
-            <input type="text" value="<?php echo $row["datos_divorcio"]; ?>" name="datos_divorcio">
+                <label for="nombre">Nombre :</label>
+                <input type="text" name="nombre" value="<?php echo $row["nombre"]; ?>">
             </li>
             <li>
-            <label for="fecha_divorcio">Fechade de divorcio</label>
-            <input type="text" value="<?php echo $row["fecha_divorcio"]; ?>" name="fecha_divorcio">
+                <input type="submit">
             </li>
-            <li>
-            <label for="divorcio">Borrar divorcio</label>
-            <input type="checkbox" value="0" name="divorcio">
-            </li>
-            <?php if($row["fecha_divorcio"] == 0){ ?>
-            <li>
-                    <label for="segundo">Segundo matrimonio </label>
-                    <input type="checkbox" name="segundo" id="segundo" value="1" onchange="javascript:mostrarSegundo()">
-                </li>
-                
-                <div id="desplegar_segundo" style="display: none;">
-                <h4>Segundo matrimonio</h4>
-                <li>
-                    <label for="lugar_segundo">Lugar de segundo: </label>
-                    <input name="lugar_segundo" type="text" >
-                </li>
-                <li>
-                    <label for="datos_segundo">Datos de segundo</label>
-                    <input name="datos_segundo" type="text" >
-                </li>
-                <li>
-                    <label for="fecha_segundo">Fecha de segundo: </label>
-                    <input name="fecha_segundo" type="date" >
-                </li>     
-                                 
-                </div>                  
-            <?php } ?>       
-            
-            <?php    if($row["segundo"] == 1){    ?>
-            
-            <h4>Segundo Matrimonio</h4>
-            <li>
-            <label for="lugar_segundo">Lugar segundo matrimonio</label>
-            <input type="text" value="<?php echo $row["lugar_segundo"]; ?>" name="lugar_segundo">
-            </li>
-            <li>
-            <label for="datos_segundo">Datos segundo matrimonio</label>
-            <input type="text" value="<?php echo $row["datos_segundo"]; ?>" name="datos_segundo">
-            </li>
-            <li>
-            <label for="fecha_segundo">Fecha segundo matrimonio</label>
-            <input type="text" value="<?php echo $row["fecha_segundo"]; ?>" name="fecha_segundo">
-            </li>
-            <label for="segundo">Borrar segundo matrimonio</label>
-            <input type="checkbox" value="0" name="segundo">         
-             
-            <?php }}else{ ?>  
-                <li>
-                    <label for="divorcio">Acta de divorcio </label>
-                    <input type="checkbox" name="divorcio"  id="divorcio" value="1" onchange="javascript:mostrarDivorcio()">
-                </li>
-                <div id="desplegar_divorcio" style="display: none;">
-                <h4>Divorcio</h4>
-                <li>
-                    <label for="lugar_divorcio">Lugar de divorcio: </label>
-                    <input name="lugar_divorcio" type="text" >
-                </li>
-                <li>
-                    <label for="datos_divorcio">Datos de divorcio</label>
-                    <input name="datos_divorcio" type="text" >
-                </li>
-                <li>
-                    <label for="fecha_divorcio">Fecha de divorcio: </label>
-                    <input name="fecha_divorcio" type="date" >
-                </li> <br>    
-                <li>
-                    <label for="segundo">Segundo matrimonio </label>
-                    <input type="checkbox" name="segundo" id="segundo" value="1" onchange="javascript:mostrarSegundo()">
-                </li>
-                
-                <div id="desplegar_segundo" style="display: none;">
-                <h4>Segundo matrimonio</h4>
-                <li>
-                    <label for="lugar_segundo">Lugar de segundo: </label>
-                    <input name="lugar_segundo" type="text" >
-                </li>
-                <li>
-                    <label for="datos_segundo">Datos de segundo</label>
-                    <input name="datos_segundo" type="text" >
-                </li>
-                <li>
-                    <label for="fecha_segundo">Fecha de segundo: </label>
-                    <input name="fecha_segundo" type="date" >
-                </li>     
-                                 
-                </div>                  
-                </div>
-            <?php } ?>                  
-    
-            <input type="submit" value="Actualizar">
-          
+        </ul>
+        
     </form>
 <?php } ?>
                        

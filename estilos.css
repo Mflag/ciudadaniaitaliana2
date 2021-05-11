@@ -45,8 +45,8 @@ table{
 }
 
 th{
-	padding: 20px;
-	
+	padding: 5px;
+	text-align: left;	
 }
 
 
@@ -62,7 +62,7 @@ tr:nth-child(even){
 }
 
 td{
-	text-align: center;
+	text-align: left;
 }
 
 
@@ -121,7 +121,7 @@ h3,h4{
 	border-bottom: black 2px solid;
 }
 .Cliente p{
-	margin: 2rem;
+	margin: 1rem;
 }
 #nuevo_cliente{
 	margin:10px auto;
@@ -198,6 +198,12 @@ h3,h4{
 	width: 350px;
 	border:1px solid black;
 }
+.crear_pago button{
+	border: none;
+	background: none;
+	color: white;
+	font-size: 1.5rem;
+}
 .crear_pago h3{
 	background-color: rgb(205 , 33, 42);
 	color: white;
@@ -222,4 +228,12 @@ h3,h4{
 .crear_pago input[type=submit]{
 	width: 75px;
 	margin: auto;
+}
+.numeros{
+	text-align: right;
+	
+}
+.tamaño_numeros{
+	width: 150px;
+	text-align: right;
 }

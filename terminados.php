@@ -15,7 +15,7 @@
 <body>
     <ul class="menu">
         <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratavivas</a></li>
+        <li><a href="enTratativas.php">En Tratativas</a></li>
         <li><a href="terminados.php" style="text-decoration: underline; color: black;">Terminados</a></li>
         <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
     </ul>

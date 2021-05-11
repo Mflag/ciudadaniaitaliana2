@@ -26,7 +26,7 @@
     <table>
         <thead>
             <tr style="font-size: 1.5rem;">
-                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Agente</th><th>Arbol</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
+                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Responsable</th><th>Trabajo</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
             </tr>
         </thead>
 <?php
@@ -42,7 +42,12 @@
             <td><?php echo $row["telefono"]; ?></td>
             <td><?php echo $row["tipo_de_cliente"]; ?></td>
             <td><?php echo $row["carpeta"]; ?></td>
-            <td><a href="arbol.php?id=<?php echo $row["id_cliente"];?>">Arbol</a></td>
+            <td><?php if($row["tipo_trabajo"] == "Carpeta" || $row["tipo_trabajo"] == "Estado civil"){ ?>
+            <a href="arbol.php?id=<?php echo $row["id_cliente"];?>"><?php echo $row["tipo_trabajo"]; ?></a>
+            <?php }else{ ?>
+                <a href="notas.php?id=<?php echo $row["id_cliente"];?>"><?php echo $row["tipo_trabajo"]; ?></a>
+                <?php } ?>
+            </td>
             
 <?php 
     $idCliente= $row["id_cliente"];
@@ -64,18 +69,10 @@
        
 ?>            
             
-            <td>$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php 
-                        if(strlen($presupuesto) ==6){echo wordwrap($presupuesto, 3, ".",true);}
-                        else
-                        {echo $presupuesto;}
-                                 
-            ?></a></td>
-            <td>$<?php if(strlen($total_pagos) ==6){echo wordwrap($total_pagos, 3, ".",true);}
-                        else
-                        {echo $total_pagos;} ?></td>
-            <td>$<?php if(strlen($saldo) ==6){echo wordwrap($saldo, 3, ".",true);}
-                        else
-                        {echo $saldo;}; ?></td>
+            <td >$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php echo number_format($presupuesto,0, ",", "."); ?>
+            </a></td>
+            <td >$<?php echo number_format($total_pagos,0, ",", "."); ?></td>
+            <td >$<?php echo number_format($saldo,0, ",", "."); ?></td>
 
 <?php }else{ ?>     
 

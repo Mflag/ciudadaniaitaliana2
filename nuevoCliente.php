@@ -12,7 +12,7 @@
     <nav>
     <ul class="menu">
         <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratavivas</a></li>
+        <li><a href="enTratativas.php">En Tratativas</a></li>
         <li><a href="terminados.php">Terminados</a></li>
         <li><a href="nuevoCliente.php" style="text-decoration: underline; color: black;">Nuevo Cliente</a></li>
     </ul>
@@ -49,13 +49,26 @@
                 </select>
             </li>           
             <li>
-                <label for="carpeta">Agente: </label>
+                <label for="carpeta">Responsable: </label>
                 <select name="carpeta" id="carpeta" form="nuevo_cliente">
                     <option value="Indefinido">Indefinido</option>
                     <option value="Andrea">Andrea</option>
                     <option value="Franco">Franco</option>
                     <option value="Matias">Matias</option>
                     <option value="Rocio">Rocio</option>
+                </select>
+            </li>
+            <li>
+                <label for="tipo_trabajo">Tipo de trabajo: </label>
+                <select name="tipo_trabajo" id="tipo_trabajo" form="nuevo_cliente">
+                    <option value="Carpeta">Carpeta</option>
+                    <option value="Turno">Turno</option>
+                    <option value="Fastit">Fastit</option>
+                    <option value="Estado civil">Estado civil</option>
+                    <option value="Rectificaiones">Rectificaiones</option>
+                    <option value="Actas">Actas</option>
+                    <option value="CNE">CNE</option>
+                    <option value="Traducciones">Traducciones</option>
                 </select>
             </li>       
             <li>

@@ -11,6 +11,8 @@
         $saldo = intval($presupuesto) - (intval($pago) + intval($total_pagos)) ;
     }    
     $fecha_pago = $_POST["fecha_pago"];
+    $fecha_pago = date_create($fecha_pago);
+    $fecha_pago =date_format($fecha_pago,"d/m/Y");
     $medio = $_POST["medio"];
 
     $insertar = "INSERT INTO cuentas (id_cuentas, id_cliente, presupuesto, pagos, saldo, fecha_pago, medio) VALUES (NULL,'$idCliente', '$presupuesto', '$pago', '$saldo','$fecha_pago','$medio');";

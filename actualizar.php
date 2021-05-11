@@ -24,7 +24,7 @@
     <table>
         <thead>
             <tr>
-                <th>Apellido</th><th>Nombre</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Carpeta</th><th>Estado</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th>Acciones</th>
+                <th>Apellido</th><th>Nombre</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Carpeta</th><th>Trabajo</th><th>Estado</th><th>Acciones</th>
             </tr>
         </thead>
 <?php
@@ -59,6 +59,19 @@
                 </select>
             </td>
             <td>
+                <select name="tipo_trabajo" id="tipo_trabajo" form="actualizar_cliente">
+                    <option value="<?php echo $row["tipo_trabajo"]; ?>"><?php echo $row["tipo_trabajo"]; ?></option>
+                    <option value="Carpeta">Carpeta</option>
+                    <option value="Turno">Turno</option>
+                    <option value="Fastit">Fastit</option>
+                    <option value="Estado civil">Estado civil</option>
+                    <option value="Rectificaiones">Rectificaiones</option>
+                    <option value="Actas">Actas</option>
+                    <option value="CNE">CNE</option>
+                    <option value="Traducciones">Traducciones</option>
+                </select>
+            </li>       
+            <td>
                 <select name="estado" id="estado" form="actualizar_cliente">
                 <option value="<?php echo $row["estado"]; ?>"><?php echo $row["estado"]; ?></option>
                 <option value="Activo">Activo</option>
@@ -66,9 +79,7 @@
                 <option value="Terminado">Terminado</option>
                 </select>
             </td>
-            <td></td>
-            <td></td>
-            <td></td>
+           
             
             <td><input type="submit" value="Actualizar"> </td>            
         

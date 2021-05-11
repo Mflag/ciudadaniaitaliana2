@@ -3,6 +3,7 @@
     $id=$_GET["id"];   
     $arbol= "SELECT * FROM arboles WHERE id_cliente= '$id'";
     $cliente= "SELECT * FROM clientes WHERE id_cliente= '$id'";
+    $notas= "SELECT * FROM notas WHERE id_cliente= '$id' ORDER BY fecha_nota";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,15 +22,19 @@
     while($rowUno=mysqli_fetch_assoc($resultadoCliente)){
         
         ?>
-        <div class="Cliente">
+        <div class="Cliente" style="border-bottom: none">           
             <p>Cliente: <?php echo $rowUno["apellido"]," ", $rowUno["nombre"]; ?></p>
             <p>Fecha de Inicio: <?php echo $rowUno["fecha"]; ?></p>
             <p>Email: <?php echo $rowUno["email"]; ?></p>
-            <p>Telefono: <?php echo $rowUno["telefono"]; ?></p>
+        </div>
+        <div class="Cliente">
+            <p>Telefono: <?php echo $rowUno["telefono"]; ?></p>            
+            <p>Tipo de trabajo: <?php echo $rowUno["tipo_de_cliente"]; ?></p>
+            <p>Trabajo: <?php echo $rowUno["tipo_trabajo"]; ?></p>
             <p>Estado: <?php echo $rowUno["estado"]; ?></p>
         </div>    
         
-<?php } ?><br><h2>Pagos</h2><br>
+<?php } ?><p style="font-size:1.5rem;text-align: center;">Pagos</p>
     <table class="paraImprimir">
             <thead >
                 <tr>
@@ -48,7 +53,7 @@
                 if($flagPresupuesto == 0){
                 ?>
                     <tr >
-                    <td >Presupuesto: $<?php echo $presupuesto ?></td><td></td><td ></td><td></td><td></td>
+                    <td colspan="4" style="text-align: center;border: solid black 3px;font-size: 1.7rem;">Presupuesto: $<?php echo number_format($presupuesto,0, ",", "."); ?></td>
                     </tr>
                 <?php    
                     $flagPresupuesto++;
@@ -58,19 +63,19 @@
                                       
                     <td><?php echo $rowCuentas["fecha_pago"]; ?></td>
                     <td><?php echo $rowCuentas["medio"]; ?></td>
-                    <td>$<?php echo $rowCuentas["pagos"]; ?></td>
-                    <td>$<?php echo $rowCuentas["saldo"]; ?></td>
+                    <td>$<?php echo number_format($rowCuentas["pagos"],0, ",", "."); ?></td>
+                    <td>$<?php echo number_format($rowCuentas["saldo"],0, ",", "."); ?></td>
                     
                 </tr>
         <?php } ?>
 
-        </table><br><h2>Arbol</h2><br>
+        </table><p style="font-size:1.5rem;text-align: center;">Arbol</p>
 
     <div >
     <table class="paraImprimir">
         <thead>
-            <tr>
-                <th class="acta">Acta</th><th class="lugar">Lugar</th><th class="datos">Estado de acta</th><th class="fecha">Fecha</th>
+            <tr >
+                <th>Acta</th><th>Lugar</th><th>Estado de acta</th><th>Fecha</th>
             </tr>
             
         </thead>
@@ -80,73 +85,48 @@
     while($row=mysqli_fetch_assoc($resultadoArbol)){
         
         ?>
-        
+        <tr style="border: solid black 3px;font-size: 1.7rem;">
             <td><?php echo $row["acta"]; ?></td>
-            <td><?php echo $row["nombre"]; ?> <?php echo $row["apellido"]; ?></td>
-            <td></td>
-            <td></td>
+            <td colspan="4" style="text-align: center;"><?php echo $row["nombre"]; ?> <?php echo $row["apellido"]; ?></td>            
+            
+            
+        </tr>
+        <?php
+    $idArbol = $row["id_arbol"];    
+    $acta= "SELECT * FROM actas WHERE id_arbol= '$idArbol' ORDER BY acta";
+    $resultadoActas = mysqli_query($conexion,$acta); 
+    
+    while($rowActa=mysqli_fetch_assoc($resultadoActas)){
         
+        ?>      
         <tr>
             
-            <td><?php echo $row["acta"]; ?>.1</td>
-            <td><?php echo $row["lugar_nacimiento"]; ?></td>
-            <td><?php echo $row["datos_nacimiento"]; ?></td>
-            <td><?php echo $row["fecha_nacimiento"]; ?></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><?php echo $row["acta"]; ?>.2<?php    if($row["segundo"] == 1){echo ".1";}?></td>
-            <td><?php echo $row["lugar_matrimonio"]; ?></td>
-            <td><?php echo $row["datos_matrimonio"]; ?></td>
-            <td><?php echo $row["fecha_matrimonio"]; ?></td>
-            <td></td>
-        </tr>
-        
-        <?php    if($row["divorcio"] == 1){    ?>
-            <tr>
-            <td><?php echo $row["acta"]; ?>.9</td>
-            <td><?php echo $row["lugar_divorcio"]; ?></td>
-            <td><?php echo $row["datos_divorcio"]; ?></td>
-            <td><?php echo $row["fecha_divorcio"]; ?></td>
-            <td></td>           
-            </tr>
-            <?php    if($row["segundo"] == 1){    ?>
-            <tr>
-            <td><?php echo $row["acta"]; ?>.2.2</td>
-            <td><?php echo $row["lugar_segundo"]; ?></td>
-            <td><?php echo $row["datos_segundo"]; ?></td>
-            <td><?php echo $row["fecha_segundo"]; ?></td>
-            <td></td>           
-            </tr>  
-            <?php    if($row["segundoDivorcio"] == 1){    ?>
-            <tr>
-            <td><?php echo $row["acta"]; ?>.9.2</td>
-            <td><?php echo $row["lugar_segundoDivorcio"]; ?></td>
-            <td><?php echo $row["datos_segundoDivorcio"]; ?></td>
-            <td><?php echo $row["fecha_segundoDivorcio"]; ?></td>
-            <td></td>           
-            </tr>
-            <?php    if($row["tercero"] == 1){    ?>
-            <tr>
-            <td><?php echo $row["acta"]; ?>.2.3</td>
-            <td><?php echo $row["lugar_tercero"]; ?></td>
-            <td><?php echo $row["datos_tercero"]; ?></td>
-            <td><?php echo $row["fecha_tercero"]; ?></td>
-            <td></td>           
-            </tr>      
-        <?php }}}} ?>        
-
-
-        <tr>
-            <td><?php echo $row["acta"]; ?>.3</td>
-            <td><?php echo $row["lugar_defuncion"]; ?></td>
-            <td><?php echo $row["datos_defuncion"]; ?></td>
-            <td><?php echo $row["fecha_defuncion"]; ?></td>
-            <td></td>           
+            <td><?php echo $row["acta"]; ?>.<?php echo $rowActa["acta"]; ?></td>
+            <td><?php echo $rowActa["lugar"]; ?></td>
+            <td><?php echo $rowActa["dato"]; ?></td>
+            <td><?php echo $rowActa["fecha"]; ?></td>
             
-        </tr>   
-        <tr class="separacion"><td></td><td></td><td></td><td></td><td></td></tr>
+        </tr>
+    <?php }} ?>
+    </table><p style="font-size:1.5rem;text-align: center;">Notas</p>
+    <table class="paraImprimir">
+        <thead>
+        <tr >           
+            <th style="width: 200px;">Fecha</th><th>Nota</th><th></th>
+        </tr>             
+        </thead>
         
+        <?php
+    $resultadoNotas = mysqli_query($conexion,$notas); 
+    
+    while($rowNotas=mysqli_fetch_assoc($resultadoNotas)){
+        
+        ?>
+        <tr style="font-size: 1.5rem;">
+            <td><?php echo $rowNotas["fecha_nota"]; ?></td>
+            <td><?php echo $rowNotas["nota"]; ?></td>
+            <td class="numeros"><a href="eliminarNotas.php?id=<?php echo $rowNotas["id_notas"]; ?>&idCliente=<?php echo $id;?>" class="eliminar"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
 <?php } ?>
     </table>
         
