@@ -15,18 +15,31 @@
     <title>Document</title>
 </head>
 <body>
-    <ul class="menu">
-        <li><a href="index.php" style="text-decoration: underline; color:black;">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratativas</a></li>
-        <li><a href="terminados.php">Terminados</a></li>
-        <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+    <!-- 12/05 Agragar la proxima conexion-->
+<nav class="menu">
+    <ul>
+        <li> <a href="#" class="boton_desplegar_clientes" style="text-decoration: underline; color:black;">Clientes</a>
+            <ul class="desplegar_clientes">
+                <li><a href="index.php" >Activos</a></li>
+                <li><a href="enTratativas.php">En Tratativas</a></li>
+                <li><a href="terminados.php">Terminados</a></li>
+                <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+                <li><a href="CRM.php">CRM</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Responsables</a></li>
+        <li><a href="#">Socios</a> </li>
     </ul>
+    
+</nav>
+<h1>Activos</h1>
+ <!-- 12/05 Agragar la proxima conexion-->
     <div id="main-container">
 
     <table>
         <thead>
             <tr style="font-size: 1.5rem;">
-                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Responsable</th><th>Trabajo</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
+                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Asignado a</th><th>Trabajo</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
             </tr>
         </thead>
 <?php
@@ -69,10 +82,10 @@
        
 ?>            
             
-            <td >$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php echo number_format($presupuesto,0, ",", "."); ?>
+            <td >$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php echo number_format($presupuesto,2, ",", "."); ?>
             </a></td>
-            <td >$<?php echo number_format($total_pagos,0, ",", "."); ?></td>
-            <td >$<?php echo number_format($saldo,0, ",", "."); ?></td>
+            <td >$<?php echo number_format($total_pagos,2, ",", "."); ?></td>
+            <td >$<?php echo number_format($saldo,2, ",", "."); ?></td>
 
 <?php }else{ ?>     
 

@@ -17,12 +17,24 @@
     <title>Document</title>
 </head>
 <body>
-    <ul class="menu">
-        <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratativas</a></li>
-        <li><a href="terminados.php">Terminados</a></li>
-        <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+     <!-- 12/05 Agragar la proxima conexion-->
+<nav class="menu">
+    <ul>
+        <li> <a href="#" class="boton_desplegar_clientes" style="text-decoration: underline; color:black;">Clientes</a>
+            <ul class="desplegar_clientes">
+                <li><a href="index.php" >Activos</a></li>
+                <li><a href="enTratativas.php">En Tratativas</a></li>
+                <li><a href="terminados.php">Terminados</a></li>
+                <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+                <li><a href="CRM.php">CRM</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Responsables</a></li>
+        <li><a href="#">Socios</a> </li>
     </ul>
+    
+</nav>
+ <!-- 12/05 Agragar la proxima conexion-->
     <?php
     $resultadoCliente = mysqli_query($conexion,$cliente); 
     

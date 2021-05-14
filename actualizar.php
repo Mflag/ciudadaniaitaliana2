@@ -2,6 +2,7 @@
     include("database.php");    
     $id=$_GET["id"];
     $clientes= "SELECT * FROM clientes WHERE id_cliente ='$id'";
+    $responsables= "SELECT * FROM responsables ORDER BY responsable";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,18 +14,30 @@
     <title>Document</title>
 </head>
 <body>
-    <ul class="menu">
-        <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratativas</a></li>
-        <li><a href="terminados.php">Terminados</a></li>
-        <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+     <!-- 12/05 Agragar la proxima conexion-->
+<nav class="menu">
+    <ul>
+        <li> <a href="#" class="boton_desplegar_clientes" style="text-decoration: underline; color:black;">Clientes</a>
+            <ul class="desplegar_clientes">
+                <li><a href="index.php" >Activos</a></li>
+                <li><a href="enTratativas.php">En Tratativas</a></li>
+                <li><a href="terminados.php">Terminados</a></li>
+                <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+                <li><a href="CRM.php">CRM</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Responsables</a></li>
+        <li><a href="#">Socios</a> </li>
     </ul>
+    
+</nav>
+ <!-- 12/05 Agragar la proxima conexion-->
     <div id="main-container">
 
     <table>
         <thead>
             <tr>
-                <th>Apellido</th><th>Nombre</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Carpeta</th><th>Trabajo</th><th>Estado</th><th>Acciones</th>
+                <th>Apellido</th><th>Nombre</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Asignado a</th><th>Trabajo</th><th>Estado</th><th>Acciones</th>
             </tr>
         </thead>
 <?php
@@ -52,10 +65,16 @@
             <td>
                 <select name="carpeta" id="carpeta" form="actualizar_cliente">
                     <option value="<?php echo $row["carpeta"]; ?>"><?php echo $row["carpeta"]; ?></option>
-                    <option value="Andrea">Andrea</option>
-                    <option value="Franco">Franco</option>
-                    <option value="Matias">Matias</option>
-                    <option value="Rocio">Rocio</option>
+
+                    <?php
+    $resultado = mysqli_query($conexion,$responsables); 
+    
+    while($rowResponsable=mysqli_fetch_assoc($resultado)){
+       
+?>        
+                    <option value="<?php echo $rowResponsable["responsable"];?>"><?php echo $rowResponsable["responsable"];?></option>
+<?php } ?>                    
+                
                 </select>
             </td>
             <td>
@@ -75,7 +94,7 @@
                 <select name="estado" id="estado" form="actualizar_cliente">
                 <option value="<?php echo $row["estado"]; ?>"><?php echo $row["estado"]; ?></option>
                 <option value="Activo">Activo</option>
-                <option value="Tratamiento">En Tratamiento</option>
+                <option value="En Tratativas">En Tratativas</option>
                 <option value="Terminado">Terminado</option>
                 </select>
             </td>

@@ -1,6 +1,6 @@
 <?php
     include("database.php");    
-    $clientes= "SELECT * FROM clientes WHERE estado = 'Tratamiento' ORDER BY apellido";
+    $clientes= "SELECT * FROM clientes WHERE estado = 'En Tratativas' ORDER BY apellido";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,18 +13,31 @@
     <title>Document</title>
 </head>
 <body>
-    <ul class="menu">
-        <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php" style="text-decoration: underline; color: black;">En Tratativas</a></li>
-        <li><a href="terminados.php">Terminados</a></li>
-        <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+     <!-- 12/05 Agragar la proxima conexion-->
+<nav class="menu">
+    <ul>
+        <li> <a href="#" class="boton_desplegar_clientes" style="text-decoration: underline; color:black;">Clientes</a>
+            <ul class="desplegar_clientes">
+                <li><a href="index.php" >Activos</a></li>
+                <li><a href="enTratativas.php">En Tratativas</a></li>
+                <li><a href="terminados.php">Terminados</a></li>
+                <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+                <li><a href="CRM.php">CRM</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Responsables</a></li>
+        <li><a href="#">Socios</a> </li>
     </ul>
+    
+</nav>
+<h1>En tratativas</h1>
+ <!-- 12/05 Agragar la proxima conexion-->
     <div id="main-container">
 
     <table>
         <thead>
             <tr style="font-size: 1.5rem;">
-            <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Agente</th><th>Arbol</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
+            <th>Cliente</th> <th>Fecha</th> <th>Email</th> <th>Telefono</th> <th>Tipo de Cliente</th> <th>Asignado a</th> <th>Trabajo</th> <th>Presupuesto</th> <th>Pagos</th> <th>Saldo</th> <th></th>
             </tr>
         </thead>
         <?php
@@ -40,7 +53,12 @@
             <td><?php echo $row["telefono"]; ?></td>
             <td><?php echo $row["tipo_de_cliente"]; ?></td>
             <td><?php echo $row["carpeta"]; ?></td>
-            <td><a href="arbol.php?id=<?php echo $row["id_cliente"];?>">Arbol</a></td>
+            <td><?php if($row["tipo_trabajo"] == "Carpeta" || $row["tipo_trabajo"] == "Estado civil"){ ?>
+            <a href="arbol.php?id=<?php echo $row["id_cliente"];?>"><?php echo $row["tipo_trabajo"]; ?></a>
+            <?php }else{ ?>
+                <a href="notas.php?id=<?php echo $row["id_cliente"];?>"><?php echo $row["tipo_trabajo"]; ?></a>
+                <?php } ?>
+            </td>
             <?php 
     $idCliente= $row["id_cliente"];
     $cuentas = "SELECT * FROM cuentas WHERE id_cliente = $idCliente"; 
@@ -61,19 +79,10 @@
        
 ?>            
             
-            <td>$<?php 
-                        if(strlen($presupuesto) ==6){echo wordwrap($presupuesto, 3, ".",true);}
-                        else
-                        {echo $presupuesto;}
-                                 
-            ?></td>
-            <td>$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php if(strlen($total_pagos) ==6){echo wordwrap($total_pagos, 3, ".",true);}
-                        else
-                        {echo $total_pagos;} ?></a></td>
-            <td>$<?php if(strlen($saldo) ==6){echo wordwrap($saldo, 3, ".",true);}
-                        else
-                        {echo $saldo;}; ?></td>
-
+            
+            <td >$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php echo number_format($presupuesto,2, ",", "."); ?></a></td>
+            <td >$<?php echo number_format($total_pagos,2, ",", "."); ?></td>
+            <td >$<?php echo number_format($saldo,2, ",", "."); ?></td>
 <?php }else{ ?>     
 
             <td><a href="pagos.php?id=<?php echo $row["id_cliente"];?>">Pagos</a><td>

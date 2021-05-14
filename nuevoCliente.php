@@ -1,4 +1,7 @@
-
+<?php
+    include("database.php");    
+    $responsables= "SELECT * FROM responsables ORDER BY responsable";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +12,24 @@
     <title>Document</title>
 </head>
 <body>
-    <nav>
-    <ul class="menu">
-        <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratativas</a></li>
-        <li><a href="terminados.php">Terminados</a></li>
-        <li><a href="nuevoCliente.php" style="text-decoration: underline; color: black;">Nuevo Cliente</a></li>
+     <!-- 12/05 Agragar la proxima conexion-->
+<nav class="menu">
+    <ul>
+        <li> <a href="#" class="boton_desplegar_clientes" style="text-decoration: underline; color:black;">Clientes</a>
+            <ul class="desplegar_clientes">
+                <li><a href="index.php" >Activos</a></li>
+                <li><a href="enTratativas.php">En Tratativas</a></li>
+                <li><a href="terminados.php">Terminados</a></li>
+                <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+                <li><a href="CRM.php">CRM</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Responsables</a></li>
+        <li><a href="#">Socios</a> </li>
     </ul>
-    </nav>
+    
+</nav>
+ <!-- 12/05 Agragar la proxima conexion-->
     <form action="crearCliente.php" method="post" id="nuevo_cliente" style="font-size: 1.5rem;">
         <h2>Nuevo Cliente</h2>
         <ul>
@@ -46,16 +59,21 @@
                     <option value="Indefinido">Indefinido</option>
                     <option value="CRM">CRM</option>
                     <option value="Propio">Propio</option>
+                    <option value="Agostino">Agostino</option>
                 </select>
             </li>           
             <li>
-                <label for="carpeta">Responsable: </label>
+                <label for="carpeta">Asignado a: </label>
                 <select name="carpeta" id="carpeta" form="nuevo_cliente">
                     <option value="Indefinido">Indefinido</option>
-                    <option value="Andrea">Andrea</option>
-                    <option value="Franco">Franco</option>
-                    <option value="Matias">Matias</option>
-                    <option value="Rocio">Rocio</option>
+                    <?php
+    $resultado = mysqli_query($conexion,$responsables); 
+    
+    while($row=mysqli_fetch_assoc($resultado)){
+       
+?>        
+                    <option value="<?php echo $row["responsable"];?>"><?php echo $row["responsable"];?></option>
+<?php } ?>                    
                 </select>
             </li>
             <li>
@@ -75,7 +93,7 @@
                 <label for="estado">Estado: </label>
                 <select name="estado" id="estado" form="nuevo_cliente">
                     <option value="Activo">Activo</option>
-                    <option value="Tratamiento">En Tratamiento</option>
+                    <option value="En Tratativas">En Tratativas</option>
                     <option value="Terminado">Terminado</option>
                 </select>
             </li>

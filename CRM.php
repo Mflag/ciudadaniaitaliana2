@@ -1,6 +1,7 @@
 <?php
     include("database.php");    
-    $clientes= "SELECT * FROM clientes WHERE estado = 'Terminado' ORDER BY apellido";
+    $clientes= "SELECT * FROM clientes WHERE tipo_de_cliente = 'CRM' AND estado='Activo' ORDER BY fecha";
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="fontawesome/css/all.css">
+
     <title>Document</title>
 </head>
 <body>
-     <!-- 12/05 Agragar la proxima conexion-->
+    <!-- 12/05 Agragar la proxima conexion-->
 <nav class="menu">
     <ul>
         <li> <a href="#" class="boton_desplegar_clientes" style="text-decoration: underline; color:black;">Clientes</a>
@@ -30,19 +32,19 @@
     </ul>
     
 </nav>
-<h1>Terminados</h1>
+<h1>CRM</h1>
  <!-- 12/05 Agragar la proxima conexion-->
-    <div id="main-container">
-
-    <table>
+ <div id="main-container">
+ <table>
         <thead>
             <tr style="font-size: 1.5rem;">
-            <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Asignado a</th><th>Trabajo</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
+                <th>Cliente</th><th>Fecha</th><th>Email</th><th>Telefono</th><th>Tipo de Cliente</th><th>Asignado a</th><th>Trabajo</th><th>Presupuesto</th><th>Pagos</th><th>Saldo</th><th></th>
             </tr>
         </thead>
-        <?php
+<?php
     $resultado = mysqli_query($conexion,$clientes); 
-    
+    $total_pagos_CRM=0;
+    $total_saldo_CRM=0;
     while($row=mysqli_fetch_assoc($resultado)){
        
 ?>
@@ -59,47 +61,32 @@
                 <a href="notas.php?id=<?php echo $row["id_cliente"];?>"><?php echo $row["tipo_trabajo"]; ?></a>
                 <?php } ?>
             </td>
-            <?php 
+            
+<?php 
     $idCliente= $row["id_cliente"];
-    $cuentas = "SELECT * FROM cuentas WHERE id_cliente = $idCliente"; 
-    $resultado_cuentas = mysqli_query($conexion,$cuentas);
-    $total_pagos=0;
-    $presupuesto=0;
-    while($rowCuentas=mysqli_fetch_assoc($resultado_cuentas)){
-        if($rowCuentas["presupuesto"]){
-        $presupuesto = $rowCuentas["presupuesto"];
-        }
-        $total_pagos= $total_pagos + $rowCuentas["pagos"];
-        $saldo = $presupuesto - $total_pagos;
-
-    }
-
-    if($presupuesto > 0){
+    $cuentas_pagos = "SELECT * FROM cuentas WHERE  id_cliente = '$idCliente' " ;
+    $resultado_cuentas_pagos = mysqli_query($conexion,$cuentas_pagos);
     
-       
-?>            
-            
-            <td >$<a href="pagos.php?id=<?php echo $row["id_cliente"];?>"><?php echo number_format($presupuesto,0, ",", "."); ?>
-            </a></td>
-            <td >$<?php echo number_format($total_pagos,2, ",", "."); ?></td>
-            <td >$<?php echo number_format($saldo,2, ",", "."); ?></td>
+    while($rowPagos=mysqli_fetch_assoc($resultado_cuentas_pagos)){
+        $total_pagos_CRM = $total_pagos_CRM + $rowPagos["pagos"];
+        
+        
+    }  
 
-<?php }else{ ?>     
-
-            <td><a href="pagos.php?id=<?php echo $row["id_cliente"];?>">Pagos</a><td>
-            <td></td>
-            
-
-<?php } ?>
-            <td class="acciones">
-                <a href="actualizar.php?id=<?php echo $row["id_cliente"];?>" class="mover"><i class="fas fa-edit"></i></a>
-                <a href="eliminar.php?id=<?php echo $row["id_cliente"];?>&estado=terminados.php" class="eliminar"><i class="fas fa-trash-alt"></i></a>
-            </td>
-        </tr>
-<?php } ?>
+    $cuentas = "SELECT * FROM cuentas WHERE  id_cliente = '$idCliente' AND id_cuentas= (SELECT MAX(id_cuentas) FROM cuentas ) " ; 
+    $resultado_cuentas = mysqli_query($conexion,$cuentas);
+    
+    
+    while($rowCuentas=mysqli_fetch_assoc($resultado_cuentas)){
+        
+        $total_saldo_CRM = $total_saldo_CRM + $rowCuentas["saldo"];
+        
+ }}?>
     </table>
-    </div>
-    <script src="confirmacion.js"></script>
+    <p><?php echo $total_pagos_CRM;?></p>
+    <p><?php echo $total_saldo_CRM;?></p>
+ 
+ </div>
 
 </body>
 </html>

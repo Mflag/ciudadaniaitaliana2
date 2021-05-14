@@ -18,16 +18,45 @@ body{
 	padding: 20px;
 	display: block;
 	font-size: 2rem;
+	position: relative;
 }
-
-.menu li{
-	display: inline-block;
-	text-align: center;
+.boton_desplegar_clientes{
+	text-decoration: none;
+	color: white;
+	padding: 20px;
+	display: block;
+	font-size: 2rem;
+	background: none;
+	border: none;
 }
-
 .menu li a:hover{
 	background:rgb(205 , 33, 42);
 }
+.menu >li{
+	float: left;
+}
+.menu ul{
+	list-style: none;
+	text-decoration: none;
+	display: inline-flex;
+	
+}
+.menu li ul{
+	display: none;
+	list-style: none;
+	position: absolute;
+	background: rgb(0, 140, 69);
+}
+.menu li:hover > ul{
+	display: block;
+}
+.menu li ul li{
+	
+	text-align: left;
+	
+}
+
+
 #main-container{
 	margin: auto;
 	font-size: 1rem;	

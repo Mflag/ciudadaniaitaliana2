@@ -14,12 +14,24 @@
     <title>Document</title>
 </head>
 <body>
-    <ul class="menu">
-        <li><a href="index.php">Activos</a></li>
-        <li><a href="enTratativas.php">En Tratativas</a></li>
-        <li><a href="terminados.php">Terminados</a></li>
-        <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+     <!-- 12/05 Agragar la proxima conexion-->
+<nav class="menu">
+    <ul>
+        <li> <a href="#" class="boton_desplegar_clientes" style="text-decoration: underline; color:black;">Clientes</a>
+            <ul class="desplegar_clientes">
+                <li><a href="index.php" >Activos</a></li>
+                <li><a href="enTratativas.php">En Tratativas</a></li>
+                <li><a href="terminados.php">Terminados</a></li>
+                <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+                <li><a href="CRM.php">CRM</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Responsables</a></li>
+        <li><a href="#">Socios</a> </li>
     </ul>
+    
+</nav>
+ <!-- 12/05 Agragar la proxima conexion-->
     <?php
     $resultadoCliente = mysqli_query($conexion,$cliente); 
     
@@ -54,7 +66,7 @@
                 if($flagPresupuesto == 0){
                 ?>
                     <tr style="border-bottom: 3px solid black;">
-                    <td colspan="5" style="font-size: 2rem; text-align: center;">Presupuesto: $<?php echo number_format($presupuesto,0, ",", ".") ?></td>
+                    <td colspan="5" style="font-size: 2rem; text-align: center;">Presupuesto: $<?php echo number_format($presupuesto,2, ",", ".") ?></td>
                     </tr>
                 <?php    
                     $flagPresupuesto++;
@@ -64,8 +76,8 @@
                                       
                     <td><?php echo $rowCuentas["fecha_pago"]; ?></td>
                     <td><?php echo $rowCuentas["medio"]; ?></td>
-                    <td class="numeros">$<?php echo number_format($rowCuentas["pagos"],0, ",", "."); ?></td>
-                    <td class="numeros">$<?php echo number_format($rowCuentas["saldo"],0, ",", "."); ?></td>
+                    <td class="numeros">$<?php echo number_format($rowCuentas["pagos"],2, ",", "."); ?></td>
+                    <td class="numeros">$<?php echo number_format($rowCuentas["saldo"],2, ",", "."); ?></td>
                     <td class="numeros"><a href="eliminarPagos.php?id=<?php echo $rowCuentas["id_cuentas"]; ?>&idCliente=<?php echo $id;?>" class="eliminar"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
         <?php $saldo = $rowCuentas["saldo"]; } ?>

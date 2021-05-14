@@ -20,6 +20,7 @@
         <li><a href="enTratativas.php">En Tratativas</a></li>
         <li><a href="terminados.php">Terminados</a></li>
         <li><a href="nuevoCliente.php">Nuevo Cliente</a></li>
+        <li><a href="CRM.php">CRM</a></li>
     </ul>
     <?php
     $resultadoCliente = mysqli_query($conexion,$cliente); 
